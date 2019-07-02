@@ -2,18 +2,27 @@ package pfr.centr.report;
 
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.*;
+import pfr.centr.report.models.UserInfo;
+import pfr.centr.report.models.UserLogined;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Route("")
-public class MainView extends Div implements BeforeEnterObserver {
+public class MainView extends Div implements BeforeEnterObserver, RouterLayout {
 
-    public MainView() {
+    private HttpServletRequest request;
+    public MainView(HttpServletRequest request) {
+        this.request = request;
         this.setText("MainPage");
     }
 
 
 
     private boolean validEnter(){
-        return false;
+        boolean otvet = false;
+        UserLogined userLogined = (UserLogined) request.getSession().getAttribute("user");
+        otvet = (userLogined!=null)&&(UserInfo.getInstance().existsUser(userLogined));
+        return otvet;
     }
 
     @Override
