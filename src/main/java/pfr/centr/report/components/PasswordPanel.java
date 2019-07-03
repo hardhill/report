@@ -1,6 +1,7 @@
 package pfr.centr.report.components;
 
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -67,6 +68,7 @@ public class PasswordPanel extends VerticalLayout {
         footer.setJustifyContentMode(JustifyContentMode.CENTER);
         footer.getStyle().set("background-color","#c3ced3");
         bEnter = new Button("Вход");
+        bEnter.addClickShortcut(Key.ENTER);
         bEnter.addClickListener(e->{
             String login = txtName.getValue();
             String pass = txtPass.getValue();

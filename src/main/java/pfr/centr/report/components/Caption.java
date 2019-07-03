@@ -8,7 +8,9 @@ public class Caption extends HorizontalLayout {
     public Caption(String txt,String width,JustifyContentMode justify) {
         getStyle().set("width",width);
         getStyle().set("margin","0px");
-        setJustifyContentMode(justify);
+        if(justify!=null) {
+            setJustifyContentMode(justify);
+        }
         add(new Label(txt));
     }
 }
