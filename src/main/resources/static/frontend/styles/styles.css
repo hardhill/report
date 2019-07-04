@@ -13,3 +13,13 @@
     overflow: auto;
     background-color: lightgrey;
 }
+.menulink{
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+.menulink:hover{
+    background-color: #d0eae1;
+    color: #296280;
+    text-decoration: none;
+
+}

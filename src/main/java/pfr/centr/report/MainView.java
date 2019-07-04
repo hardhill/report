@@ -16,6 +16,10 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLayout;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import pfr.centr.report.components.DataContainer;
+import pfr.centr.report.models.ModeDataView;
 import pfr.centr.report.models.UserInfo;
 import pfr.centr.report.models.UserLogined;
 
@@ -23,7 +27,8 @@ import pfr.centr.report.models.UserLogined;
 @StyleSheet("styles/styles.css") // Relative to Servlet URL
 public class MainView extends VerticalLayout implements BeforeEnterObserver, RouterLayout {
 
-
+    @Autowired
+    JdbcTemplate jdbcTemplate;
     public MainView() {
 
         //CONTAINER
@@ -64,7 +69,11 @@ public class MainView extends VerticalLayout implements BeforeEnterObserver, Rou
         logoTitle.addClassName("logoside");
         Anchor link1 = new Anchor("", "Отчеты");
         Anchor link2 = new Anchor("price", "Прайс");
-        logoSide.add(logoTitle,link1,link2);
+        Anchor link3 = new Anchor("typerep", "Тип отчета");
+        link1.addClassName("menulink");
+        link2.addClassName("menulink");
+        link3.addClassName("menulink");
+        logoSide.add(logoTitle,link1,link2,link3);
 
         HorizontalLayout reportHeader = new HorizontalLayout();
         reportHeader.setWidth("100%");
@@ -79,6 +88,7 @@ public class MainView extends VerticalLayout implements BeforeEnterObserver, Rou
         VerticalLayout workspace = new VerticalLayout();
         workspace.addClassName("workspace");
         workspace.setSizeFull();
+        workspace.add(new DataContainer(ModeDataView.GRID));
         return workspace;
     }
 
