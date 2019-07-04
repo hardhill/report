@@ -1,0 +1,15 @@
+.logoside{
+    margin-left: 30px;
+    width: 110px;
+    font-weight: bold;
+    font-size: 1.0rem;
+    color: #296280;
+}
+.reportmenu{
+    padding: 0px 10px;
+    width: 100%;
+}
+.workspace{
+    overflow: auto;
+    background-color: lightgrey;
+}
