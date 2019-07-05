@@ -16,8 +16,6 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLayout;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import pfr.centr.report.components.DataContainer;
 import pfr.centr.report.models.ModeDataView;
 import pfr.centr.report.models.UserInfo;
@@ -27,8 +25,6 @@ import pfr.centr.report.models.UserLogined;
 @StyleSheet("styles/styles.css") // Relative to Servlet URL
 public class MainView extends VerticalLayout implements BeforeEnterObserver, RouterLayout {
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
     public MainView() {
 
         //CONTAINER

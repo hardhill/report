@@ -3,21 +3,23 @@ package pfr.centr.report.models;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 
-@Service
+@Component
 public class InfocenterDAO {
+
     @Autowired
     JdbcTemplate jdbcTemplate;
 
     DateTimeFormatter dateformatter;
 
     public InfocenterDAO() {
+
         dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     }
 
