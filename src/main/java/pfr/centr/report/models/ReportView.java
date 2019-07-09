@@ -2,7 +2,7 @@ package pfr.centr.report.models;
 
 import java.util.Date;
 
-public class TypeReportView {
+public class ReportView {
     private Long id;
     private Date dt;
     private String rayon;
@@ -11,7 +11,7 @@ public class TypeReportView {
     private String user;
     private double cost;
 
-    public TypeReportView() {
+    public ReportView() {
     }
 
     public Long getId() {

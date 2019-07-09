@@ -4,12 +4,14 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import org.springframework.beans.factory.annotation.Autowired;
+import pfr.centr.report.controllers.MainController;
 import pfr.centr.report.models.InfocenterDAO;
 import pfr.centr.report.models.ModeDataView;
-import pfr.centr.report.models.TypeReportView;
+import pfr.centr.report.models.ReportView;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class DataContainer extends Div {
 
@@ -35,10 +37,10 @@ public class DataContainer extends Div {
     }
 
     private Component GridReport() {
-        Grid<TypeReportView> grid = new Grid<>(TypeReportView.class);
-        List<TypeReportView> data = new ArrayList<>();
-        infocenterDAO = infocenterDAO == null ? new InfocenterDAO() : infocenterDAO;
-        data = infocenterDAO.GetAllReports();
+        Grid<ReportView> grid = new Grid<>(ReportView.class);
+        List<ReportView> data = new ArrayList<>();
+        MainController mainController = new MainController();
+        data = mainController.GetAllReports();
         grid.setItems(data);
         return grid;
     }

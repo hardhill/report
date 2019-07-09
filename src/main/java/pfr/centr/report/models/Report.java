@@ -3,7 +3,7 @@ package pfr.centr.report.models;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-public class TypeReport implements Cloneable {
+public class Report implements Cloneable {
     private int id;
     private Date daterep;
     private int rayon;
@@ -11,7 +11,7 @@ public class TypeReport implements Cloneable {
     private int operation;
     private int iduser;
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-    public TypeReport() {
+    public Report() {
 
     }
 
@@ -67,10 +67,10 @@ public class TypeReport implements Cloneable {
     public boolean equals(Object obj) {
         if(this==obj)
         return true;
-        if(!(obj instanceof TypeReport))
+        if(!(obj instanceof Report))
             return false;
-        TypeReport typeReport = (TypeReport)obj;
-        return id == typeReport.id;
+        Report report = (Report)obj;
+        return id == report.id;
     }
 
     @Override
