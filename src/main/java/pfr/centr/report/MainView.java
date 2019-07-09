@@ -28,6 +28,7 @@ public class MainView extends VerticalLayout implements BeforeEnterObserver, Rou
     public MainView() {
 
         //CONTAINER
+
         setSizeFull();
         setMargin(false);
         setSpacing(false);
@@ -71,6 +72,7 @@ public class MainView extends VerticalLayout implements BeforeEnterObserver, Rou
         link3.addClassName("menulink");
         logoSide.add(logoTitle,link1,link2,link3);
 
+        //главное преглавное меню
         HorizontalLayout reportHeader = new HorizontalLayout();
         reportHeader.setWidth("100%");
         reportHeader.setAlignItems(FlexComponent.Alignment.CENTER);
