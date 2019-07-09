@@ -1,10 +1,15 @@
 package pfr.centr.report.models;
 
-public class TypeReport {
+public class TypeReport implements Cloneable {
     private Long id;
     private String typereport;
 
     public TypeReport() {
+    }
+
+    public TypeReport(Long id, String typereport) {
+        this.id = id;
+        this.typereport = typereport;
     }
 
     public Long getId() {
@@ -21,5 +26,10 @@ public class TypeReport {
 
     public void setTypereport(String typereport) {
         this.typereport = typereport;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

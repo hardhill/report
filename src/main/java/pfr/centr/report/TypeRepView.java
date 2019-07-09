@@ -49,24 +49,25 @@ public class TypeRepView extends VerticalLayout implements BeforeEnterObserver {
     }
 
     private Component GridTypeReport(){
+        //родительский контейнер
+        VerticalLayout workspaceGrid = new VerticalLayout();
         HorizontalLayout pnlGrid = new HorizontalLayout();
         pnlGrid.setJustifyContentMode(JustifyContentMode.CENTER);
         pnlGrid.add(TableGrid());
-        //родительский контейнер
-        VerticalLayout workspaceGrid = new VerticalLayout();
+       //добавить в родительский/корневой контейнер
         workspaceGrid.add(pnlGrid);
         return workspaceGrid;
     }
 
     private Component TableGrid() {
         Grid<TypeReport> grid = new Grid<>(TypeReport.class);
-        List<TypeReport> items  = new ArrayList<>();
+        List<TypeReport> data  = new ArrayList<>();
         try {
-           items  = infocenterDAO.GetAllTypeReports(0);
+           data  = infocenterDAO.GetAllTypeReports(0);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        grid.setItems(items);
+        grid.setItems(data);
         return grid;
     }
 
