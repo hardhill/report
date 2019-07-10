@@ -1,14 +1,18 @@
 package pfr.centr.report;
 
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.StyleSheet;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
@@ -20,14 +24,29 @@ import pfr.centr.report.models.UserLogined;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Route("typerep")
 @StyleSheet("styles/styles.css") // Relative to Servlet URL
 public class TypeRepView extends VerticalLayout implements BeforeEnterObserver {
 
     private InfocenterDAO infocenterDAO;
+    Grid<TypeReport> grid;
+
     public TypeRepView() {
         infocenterDAO = new InfocenterDAO();
+        grid = new Grid<>();
+        grid.setMinWidth("420px"); grid.setMaxWidth("640px");
+        grid.setMaxHeight("380px");
+        grid.addColumn(TypeReport::getId).setHeader("#").setWidth("20px");
+        grid.addColumn(TypeReport::getTypereport).setHeader("Наименование вида отчета").setWidth("400px");
+        List<TypeReport> data  = new ArrayList<>();
+        try {
+            data  = infocenterDAO.GetAllTypeReports(0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        grid.setItems(data);
         add(HeaderTRView(), GridTypeReport());
     }
 
@@ -51,23 +70,45 @@ public class TypeRepView extends VerticalLayout implements BeforeEnterObserver {
     private Component GridTypeReport(){
         //родительский контейнер
         VerticalLayout workspaceGrid = new VerticalLayout();
-        HorizontalLayout pnlGrid = new HorizontalLayout();
-        pnlGrid.setJustifyContentMode(JustifyContentMode.CENTER);
-        pnlGrid.add(TableGrid());
+        VerticalLayout pnlGrid = new VerticalLayout();
+        Button bNewTypeReport = new Button();
+        bNewTypeReport.setIcon(new Icon(VaadinIcon.PLUS));
+        bNewTypeReport.setText("Новый тип отчета");
+        bNewTypeReport.addClickListener(e->{
+            Dialog newTypeReportDialog = new Dialog();
+            newTypeReportDialog.setCloseOnOutsideClick(false);
+            Text label = new Text("Введите название отчета");
+            TextField edtType = new TextField("");
+            edtType.setWidth("180px");
+            Button bOk = new Button("Сохранить");
+            bOk.addClickListener(event->{
+                //сохранить значение в БД
+                if(infocenterDAO.NewTypeReport(edtType.getValue())){
+                    try {
+                        grid.setItems(new ArrayList<TypeReport>());
+                        grid.setItems((Stream<TypeReport>) infocenterDAO.GetAllReports());
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+                newTypeReportDialog.close();
+            });
+            Button bCancel = new Button("Отмена");
+            bCancel.addClickListener(event->{
+                newTypeReportDialog.close();
+            });
+            newTypeReportDialog.add(new VerticalLayout(label,edtType),new HorizontalLayout(bOk,bCancel));
+            newTypeReportDialog.open();
+        });
+        pnlGrid.add(grid);
+        pnlGrid.add(bNewTypeReport);
        //добавить в родительский/корневой контейнер
         workspaceGrid.add(pnlGrid);
         return workspaceGrid;
     }
 
     private Component TableGrid() {
-        Grid<TypeReport> grid = new Grid<>(TypeReport.class);
-        List<TypeReport> data  = new ArrayList<>();
-        try {
-           data  = infocenterDAO.GetAllTypeReports(0);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        grid.setItems(data);
+
         return grid;
     }
 

@@ -57,4 +57,15 @@ public class InfocenterDAO {
         }
         return otvet;
     }
+
+    public boolean NewTypeReport(String value) {
+        boolean result = false;
+        String sql = "INSERT INTO report_type (name) VALUES ('"+value+"')";
+        try {
+            result = statement.execute(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }
